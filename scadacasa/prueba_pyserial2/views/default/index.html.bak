@@ -1,0 +1,71 @@
+{{extend 'layout.html'}}
+
+<html>
+<head><title>Arduino UNO</title></head>
+<body>
+<h1>Prueba pySerial</h1>
+<form name="acceso" 
+  method="get">
+<p>
+Selecciona el estado del LED:
+<br/>
+<input type="radio" name="estado" value="H" />
+Encendido
+<br/>
+<input type="radio" name="estado" value="L" />
+Apagado
+</p>
+<p>
+<input type="submit" value="Entrar" />
+</p>
+</form>
+</body>
+</html>
+
+    
+    
+<div id="horayfecha">horasddssd</div>
+
+
+
+
+
+
+
+<script language="javascript">
+    jQuery(document).ready(function(){
+        if ({{==recibido}}==11){jQuery("#suelo").attr('style','fill:green');
+                                jQuery("puerta").attr('style','fill:green');}
+        {{pass}}
+        if ({{==recibido}}==0){jQuery("#suelo").attr('style','fill:blue');
+                                jQuery("puerta").attr('style','fill:black');}
+        {{pass}}
+        if ({{==recibido}}==10){jQuery("#suelo").attr('style','fill:green');
+                                jQuery("puerta").attr('style','fill:black');}
+        {{pass}}
+        if ({{==recibido}}==12){jQuery("#suelo").attr('style','fill:blue');
+                                jQuery("puerta").attr('style','fill:blue');}
+        {{pass}}
+    });
+
+  function temporizador() {
+        timer = setTimeout("temporizador()", 1000);
+        pidehora();
+  }
+
+  function pidehora() {
+        jQuery.post( "{{=URL('default','pide_hora.json')}}")
+        .success(function(datos_recibidos) {
+                  
+                  jQuery("#horayfecha").html(datos_recibidos["horayfecha"]);        
+        });
+  }    
+
+
+  jQuery(document).ready(function() {
+      timer = setTimeout("temporizador()", 500);
+
+  });
+
+
+</script>

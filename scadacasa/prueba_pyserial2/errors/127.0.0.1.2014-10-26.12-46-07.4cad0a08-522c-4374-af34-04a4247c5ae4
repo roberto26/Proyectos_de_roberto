@@ -1,0 +1,21 @@
+(dp1
+S'output'
+p2
+S"<type 'exceptions.OSError'> [Errno 11] Resource temporarily unavailable"
+p3
+sS'layer'
+p4
+S'/home/roberto/Escritorio/web2py/applications/prueba_pyserial/controllers/default.py'
+p5
+sS'code'
+p6
+S'# -*- coding: utf-8 -*-\n# this file is released under public domain and you can use without limitations\n\n#########################################################################\n## This is a sample controller\n## - index is the default action of any application\n## - user is required for authentication and authorization\n## - download is for downloading files uploaded in the db (does streaming)\n## - call exposes all registered services (none by default)\n#########################################################################\nimport math\nimport datetime\nimport serial\nPuertoSerie= serial.Serial(\'/dev/ttyACM1\',9600)\n\ndef index():\n\t"""\n\texample action using the internationalization operator T and flash\n\trendered by views/default/index.html or views/generic.html\n\n\tif you need a simple wiki simply replace the two lines below with:\n\treturn auth.wiki()\n\t"""\n\tresponse.flash = T("Welcome Roberto!")\n\treturn dict(message=T(\'Hello World\'))\n\n   \n\n\n\ndef recibe_datos():\n\toperando1=int(request.vars.operando1)\n\tresultado=math.log(operando1, 10)\n\treturn resultado\n\n\ndef pide_hora():\n\n\twhile True:\n\t\tsArduino=PuertoSerie.readline()\n\t\tif sArduino==1:\n\t\t\treturn (sArduino)\n\t\tif sArduino==0:\n\t\t\treturn (sArduino)\n\ndef user():\n\t"""\n\texposes:\n\thttp://..../[app]/default/user/login\n\thttp://..../[app]/default/user/logout\n\thttp://..../[app]/default/user/register\n\thttp://..../[app]/default/user/profile\n\thttp://..../[app]/default/user/retrieve_password\n\thttp://..../[app]/default/user/change_password\n\thttp://..../[app]/default/user/manage_users (requires membership in\n\tuse @auth.requires_login()\n\t\t@auth.requires_membership(\'group name\')\n\t\t@auth.requires_permission(\'read\',\'table name\',record_id)\n\tto decorate functions that need access control\n\t"""\n\treturn dict(form=auth())\n\n@cache.action()\ndef download():\n\t"""\n\tallows downloading of uploaded files\n\thttp://..../[app]/default/download/[filename]\n\t"""\n\treturn response.download(request, db)\n\n\ndef call():\n\t"""\n\texposes services. for example:\n\thttp://..../[app]/default/call/jsonrpc\n\tdecorate with @services.jsonrpc the functions to expose\n\tsupports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv\n\t"""\n\treturn service()\n\n\n@auth.requires_signature()\ndef data():\n\t"""\n\thttp://..../[app]/default/data/tables\n\thttp://..../[app]/default/data/create/[table]\n\thttp://..../[app]/default/data/read/[table]/[id]\n\thttp://..../[app]/default/data/update/[table]/[id]\n\thttp://..../[app]/default/data/delete/[table]/[id]\n\thttp://..../[app]/default/data/select/[table]\n\thttp://..../[app]/default/data/search/[table]\n\tbut URLs must be signed, i.e. linked with\n\t\tA(\'table\',_href=URL(\'data/tables\',user_signature=True))\n\tor with the signed load operator\n\t\tLOAD(\'default\',\'data.load\',args=\'tables\',ajax=True,user_signature=True)\n\t"""\n\treturn dict(form=crud())\n\nresponse._vars=response._caller(pide_hora)\n'
+p7
+sS'snapshot'
+p8
+(dp9
+sS'traceback'
+p10
+S'Traceback (most recent call last):\n  File "/home/roberto/Escritorio/web2py/gluon/restricted.py", line 224, in restricted\n    exec ccode in environment\n  File "/home/roberto/Escritorio/web2py/applications/prueba_pyserial/controllers/default.py", line 99, in <module>\n  File "/home/roberto/Escritorio/web2py/gluon/globals.py", line 392, in <lambda>\n    self._caller = lambda f: f()\n  File "/home/roberto/Escritorio/web2py/applications/prueba_pyserial/controllers/default.py", line 40, in pide_hora\n    sArduino=PuertoSerie.readline()\n  File "/usr/lib/python2.7/dist-packages/serial/serialposix.py", line 453, in read\n    buf = os.read(self.fd, size-len(read))\nOSError: [Errno 11] Resource temporarily unavailable\n'
+p11
+s.
